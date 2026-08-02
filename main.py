@@ -2,7 +2,7 @@ import platform
 import shutil
 
 def show_disk_info():
-    shutil.disk_usage('/')
+    
     disk = shutil.disk_usage('/')
     
     total_gb = disk.total / (1024 ** 3)
@@ -13,6 +13,9 @@ def show_disk_info():
     
     free_gb = disk.free / (1024 ** 3)
     print('Свободно:', round(free_gb, 2), 'ГБ')
+    
+    disk_percent = disk.used / disk.total * 100
+    print('Диск заполнен на:', round(disk_percent, 1), '%')
 
 def show_system_info():
     print('Операционная система:', platform.system())
@@ -29,8 +32,9 @@ def skobki_tu():
 while True:
 
     print("=== PyGuard ===")
-    print('2. Информация о диске')
     print('1. Информация о системе')
+    print('2. Информация о диске')
+    print()
     print('0. Выход')
     #ввод
     inp = input('>> ')
