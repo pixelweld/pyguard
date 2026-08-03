@@ -4,7 +4,12 @@ import psutil
 
 def show_resources_info():
     cpu = psutil.cpu_percent(interval=1)
-    print('(CPU)Загрузка процессора(из 100%):', round(cpu, 2),'%')
+    print('(CPU)Загрузка процессора(из 100%):', round(cpu, 2),'%', sep='')
+    cpudan = psutil.virtual_memory()
+    print('Всего RAM:', round((cpudan.total / 1024 ** 3), 1),'ГБ')
+    print('Занято RAM:', round((cpudan.used / 1024 ** 3), 1),'ГБ')
+    print('Доступно RAM:', round((cpudan.available / 1024 ** 3), 1),'ГБ')
+    print('Использовано RAM:', round(cpudan.percent, 1),'%', sep='')
     
 def show_disk_info():
     
@@ -39,7 +44,7 @@ while True:
     print("=== PyGuard ===")
     print('1. Информация о системе')
     print('2. Информация о диске')
-    print('3. (CPU)Загрузка процессора')
+    print('3. (CPU)Загрузка процессора и (RAM)оперативная память')
     print()
     print('0. Выход')
     #ввод
