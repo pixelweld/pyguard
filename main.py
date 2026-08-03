@@ -1,6 +1,11 @@
 import platform
 import shutil
+import psutil
 
+def show_resources_info():
+    cpu = psutil.cpu_percent(interval=1)
+    print('(CPU)Загрузка процессора(из 100%):', round(cpu, 2),'%')
+    
 def show_disk_info():
     
     disk = shutil.disk_usage('/')
@@ -34,6 +39,7 @@ while True:
     print("=== PyGuard ===")
     print('1. Информация о системе')
     print('2. Информация о диске')
+    print('3. (CPU)Загрузка процессора')
     print()
     print('0. Выход')
     #ввод
@@ -49,8 +55,14 @@ while True:
         show_disk_info() 
         skobki_tu() 
         wait_for_enter()
+    elif inp == '3':
+        skobki_tu()
+        show_resources_info()
+        skobki_tu()
+        wait_for_enter()
     elif inp == '0':
         print('Вы решили выйти')
         break
     else:
         print('Неизвестная команда')
+        
