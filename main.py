@@ -2,6 +2,36 @@ import platform
 import shutil
 import psutil
 
+def get_ram(process):
+    return process['ram_mb']
+
+def show_process_info():
+    processes = psutil.pids()
+    print('Запущено процессов:',len(processes))
+    
+    process_iter = psutil.process_iter(['pid', 'name', 'memory_info'])
+    process_list = []
+    
+    for process in process_iter:
+        info = process.info
+        ram_mb = info['memory_info'].rss / (1024 ** 2)        
+        
+        process_data = {
+            'pid': info['pid'], 
+            'name': info['name'], 
+            'ram_mb': ram_mb
+            }
+        process_list.append(process_data)
+    process_list.sort(key=get_ram, reverse=True)
+    for process in process_list:
+        
+        print(
+            'PID:', process['pid'],
+            '|Процесс:', process['name'],
+            '|RAM:', round(process['ram_mb'], 1),'МБ'
+        )
+        
+
 def show_resources_info():
     cpu = psutil.cpu_percent(interval=1)
     print('(CPU)Загрузка процессора(из 100%):', round(cpu, 2),'%', sep='')
@@ -45,6 +75,7 @@ while True:
     print('1. Информация о системе')
     print('2. Информация о диске')
     print('3. (CPU)Загрузка процессора и (RAM)оперативная память')
+    print('4. Запущенные процессы')
     print()
     print('0. Выход')
     #ввод
@@ -63,6 +94,11 @@ while True:
     elif inp == '3':
         skobki_tu()
         show_resources_info()
+        skobki_tu()
+        wait_for_enter()
+    elif inp == '4':
+        skobki_tu()
+        show_process_info()
         skobki_tu()
         wait_for_enter()
     elif inp == '0':
