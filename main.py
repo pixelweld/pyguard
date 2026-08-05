@@ -2,6 +2,22 @@ import platform
 import shutil
 import psutil
 
+def show_network_info():
+    network = psutil.net_io_counters()
+    interfaces = psutil.net_if_addrs()
+    received_mb = network.bytes_recv / 1024 ** 2
+    sent_mb = network.bytes_sent / 1024 ** 2
+    
+    print('Информация о сети(c момента запуска ПК):')
+    print('Получено:',round(received_mb, 2),'МБ')
+    print('Отправлено:',round(sent_mb, 2),'МБ')
+
+    for interface_name, addresses in interfaces.items():
+        print(interface_name)
+        for address in addresses:
+            print(address.family)
+            print(address.address)
+    
 def get_ram(process):
     return process['ram_mb']
 
@@ -76,9 +92,12 @@ while True:
     print('2. Информация о диске')
     print('3. (CPU)Загрузка процессора и (RAM)оперативная память')
     print('4. Запущенные процессы')
+    print('5. Информация о сети')
     print()
     print('0. Выход')
+    
     #ввод
+    
     inp = input('>> ')
 
     if inp == '1':
@@ -99,6 +118,11 @@ while True:
     elif inp == '4':
         skobki_tu()
         show_process_info()
+        skobki_tu()
+        wait_for_enter()
+    elif inp == '5':
+        skobki_tu()
+        show_network_info()
         skobki_tu()
         wait_for_enter()
     elif inp == '0':
