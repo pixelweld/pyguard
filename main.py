@@ -1,6 +1,7 @@
 import platform
 import shutil
 import psutil
+import socket
 
 def show_network_info():
     network = psutil.net_io_counters()
@@ -13,10 +14,12 @@ def show_network_info():
     print('Отправлено:',round(sent_mb, 2),'МБ')
 
     for interface_name, addresses in interfaces.items():
-        print(interface_name)
         for address in addresses:
-            print(address.family)
-            print(address.address)
+            if address.family == socket.AF_INET:
+                print(
+                    'Интерфейс:', interface_name,
+                    '| IPv4:', address.address
+                )
     
 def get_ram(process):
     return process['ram_mb']
