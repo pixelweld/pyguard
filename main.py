@@ -2,9 +2,25 @@ import platform
 import shutil
 import psutil
 import socket
+import time
 
 def show_network_info():
     network = psutil.net_io_counters()
+    
+    for i in range(21):
+        filled = '#' * (i + 1)
+        empty = '-' * (20 - i)
+        print('\rАнализ:', filled + empty, end='', flush=True)
+        time.sleep(0.1)
+    print()
+    print('===')
+    
+    network_after = psutil.net_io_counters()
+    received_speed_mb = (network_after.bytes_recv - network.bytes_recv) / 1024 ** 2
+    sent_speed_mb = (network_after.bytes_sent - network.bytes_sent) / 1024 ** 2
+    print('Скорость получения:', round(received_speed_mb, 2), 'МБ/с')
+    print('Скорость отправки:', round(sent_speed_mb, 2), 'МБ/с')
+    
     interfaces = psutil.net_if_addrs()
     received_mb = network.bytes_recv / 1024 ** 2
     sent_mb = network.bytes_sent / 1024 ** 2
