@@ -4,13 +4,26 @@ import psutil
 import socket
 import time
 
+def show_battery_info():
+    print(battery)
+    battery = psutil.sensors_battery()
+    print('Заряд батареи:', round(battery.percent, 3), '%')
+    
+    zaryad = battery.power_plugged
+    
+    if zaryad == True:
+        print('Питание: подключено')
+    else:
+        print('Питание: от батареи')
+
+
 def show_network_info():
     network = psutil.net_io_counters()
     
-    for i in range(21):
+    for i in range(10):
         filled = '#' * (i + 1)
-        empty = '-' * (20 - i)
-        print('\rАнализ:', filled + empty, end='', flush=True)
+        empty = '-' * (9 - i)
+        print('\rАнализ:', filled + empty, end='')
         time.sleep(0.1)
     print()
     print('===')
@@ -112,6 +125,7 @@ while True:
     print('3. (CPU)Загрузка процессора и (RAM)оперативная память')
     print('4. Запущенные процессы')
     print('5. Информация о сети')
+    print('6. Информация о батарее')
     print()
     print('0. Выход')
     
@@ -142,6 +156,11 @@ while True:
     elif inp == '5':
         skobki_tu()
         show_network_info()
+        skobki_tu()
+        wait_for_enter()
+    elif inp == '6':
+        skobki_tu()
+        show_battery_info()
         skobki_tu()
         wait_for_enter()
     elif inp == '0':
