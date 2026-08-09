@@ -4,17 +4,18 @@ import psutil
 import socket
 import time
 
+def show_uptime_info():
+    boot_time = psutil.boot_time()
+    current_time = time.time()
+    vse_vremya = current_time - boot_time
+    hours = int(vse_vremya // 3600)
+    print('Система работает:', hours, 'ч.')
+    
 def show_battery_info():
-    print(battery)
     battery = psutil.sensors_battery()
     print('Заряд батареи:', round(battery.percent, 3), '%')
     
     zaryad = battery.power_plugged
-    
-    if zaryad == True:
-        print('Питание: подключено')
-    else:
-        print('Питание: от батареи')
 
 
 def show_network_info():
@@ -126,6 +127,7 @@ while True:
     print('4. Запущенные процессы')
     print('5. Информация о сети')
     print('6. Информация о батарее')
+    print('7. Время работы системы')
     print()
     print('0. Выход')
     
@@ -161,6 +163,11 @@ while True:
     elif inp == '6':
         skobki_tu()
         show_battery_info()
+        skobki_tu()
+        wait_for_enter()
+    elif inp == '7':
+        skobki_tu()
+        show_uptime_info()
         skobki_tu()
         wait_for_enter()
     elif inp == '0':
