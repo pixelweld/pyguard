@@ -8,8 +8,10 @@ def show_uptime_info():
     boot_time = psutil.boot_time()
     current_time = time.time()
     vse_vremya = current_time - boot_time
+    minutes = int((vse_vremya % 3600) // 60)
+    seconds = int(vse_vremya % 60)
     hours = int(vse_vremya // 3600)
-    print('Система работает:', hours, 'ч.')
+    print('Система работает:', hours, 'ч.', minutes, 'мин.', seconds, 'сек.')
     
 def show_battery_info():
     battery = psutil.sensors_battery()
