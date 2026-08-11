@@ -4,6 +4,20 @@ import psutil
 import socket
 import time
 
+def show_zvezdi():
+    
+    n = int(input('Введите количество звезд: '))
+    print()
+    
+    middle = n // 2 + 1
+
+    for i in range(1, middle + 1):
+        print(i * '*')
+
+    for j in range(middle - 1, 0, -1):
+        print(j * '*')
+
+
 def show_uptime_info():
     boot_time = psutil.boot_time()
     current_time = time.time()
@@ -122,6 +136,7 @@ def skobki_tu():
 
 while True:
 
+    print()
     print("=== PyGuard ===")
     print('1. Информация о системе')
     print('2. Информация о диске')
@@ -131,6 +146,7 @@ while True:
     print('6. Информация о батарее')
     print('7. Время работы системы')
     print()
+    print('01. Звёзды')
     print('0. Выход')
     
     #ввод
@@ -171,6 +187,11 @@ while True:
         skobki_tu()
         show_uptime_info()
         skobki_tu()
+        wait_for_enter()
+    elif inp == '01':
+        print()
+        show_zvezdi()
+        print()
         wait_for_enter()
     elif inp == '0':
         print('Вы решили выйти')
