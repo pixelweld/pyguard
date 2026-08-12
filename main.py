@@ -4,6 +4,12 @@ import psutil
 import socket
 import time
 
+def show_cpu_info():
+    physical = psutil.cpu_count(logical=False)
+    logical = psutil.cpu_count(logical=True)
+    print('Физических ядер:', physical)
+    print('Потоков:', logical)
+
 def show_zvezdi():
     
     n = int(input('Введите количество звезд: '))
@@ -145,6 +151,7 @@ while True:
     print('5. Информация о сети')
     print('6. Информация о батарее')
     print('7. Время работы системы')
+    print('8. Информация о процессоре')
     print()
     print('01. Звёзды')
     print('0. Выход')
@@ -186,6 +193,11 @@ while True:
     elif inp == '7':
         skobki_tu()
         show_uptime_info()
+        skobki_tu()
+        wait_for_enter()
+    elif inp == '8':
+        skobki_tu()
+        show_cpu_info()
         skobki_tu()
         wait_for_enter()
     elif inp == '01':
