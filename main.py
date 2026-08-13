@@ -4,6 +4,17 @@ import psutil
 import socket
 import time
 
+def show_temperature_info():
+    temperatures = psutil.sensors_temperatures()
+    cpu_temp = temperatures['coretemp'][0].current
+    print('Температура CPU:', cpu_temp, '°C')
+    ssd_temp = temperatures['nvme'][0].current
+    print('Температура SSD:', round(ssd_temp, 1), '°C')
+    
+    for sensor in temperatures['coretemp']:
+        if 'Core' in sensor.label:
+            print(sensor.label + ':', sensor.current, '°C')
+
 def show_cpu_info():
     physical = psutil.cpu_count(logical=False)
     logical = psutil.cpu_count(logical=True)
@@ -152,6 +163,7 @@ while True:
     print('6. Информация о батарее')
     print('7. Время работы системы')
     print('8. Информация о процессоре')
+    print('9. Температура')
     print()
     print('01. Звёзды')
     print('0. Выход')
@@ -198,6 +210,11 @@ while True:
     elif inp == '8':
         skobki_tu()
         show_cpu_info()
+        skobki_tu()
+        wait_for_enter()
+    elif inp == '9':
+        skobki_tu()
+        show_temperature_info()
         skobki_tu()
         wait_for_enter()
     elif inp == '01':
