@@ -4,6 +4,20 @@ import psutil
 import socket
 import time
 
+def show_connections_info():
+    connections = psutil.net_connections(kind='inet')
+    print('Найдено сетевых соединений:', len(connections))
+    for connection in connections:
+        if connection.status == 'ESTABLISHED':
+            print(
+    'PID:', connection.pid,
+    '| Локальный:', connection.laddr,
+    '| Удалённый:', connection.raddr
+)
+        if connection.pid is not None:
+            process_name = psutil.Process(connection.pid).name()
+            print('Процесс:', process_name)
+            
 def show_temperature_info():
     temperatures = psutil.sensors_temperatures()
     cpu_temp = temperatures['coretemp'][0].current
@@ -164,6 +178,7 @@ while True:
     print('7. Время работы системы')
     print('8. Информация о процессоре')
     print('9. Температура')
+    print('10. Сетевые соединения')
     print()
     print('01. Звёзды')
     print('0. Выход')
@@ -215,6 +230,11 @@ while True:
     elif inp == '9':
         skobki_tu()
         show_temperature_info()
+        skobki_tu()
+        wait_for_enter()
+    elif inp == '10':
+        skobki_tu()
+        show_connections_info()
         skobki_tu()
         wait_for_enter()
     elif inp == '01':
