@@ -4,6 +4,12 @@ import psutil
 import socket
 import time
 
+def show_cpu_frequency():
+    frequency = psutil.cpu_freq()
+    print('Текущая частота CPU:', round(frequency.current, 1), 'МГц')
+    print('Минимальная частота:', round(frequency.min, 1), 'МГц')
+    print('Максимальная частота:', round(frequency.max, 1), 'МГц')
+    
 def show_connections_info():
     connections = psutil.net_connections(kind='inet')
     print('Найдено сетевых соединений:', len(connections))
@@ -179,6 +185,7 @@ while True:
     print('8. Информация о процессоре')
     print('9. Температура')
     print('10. Сетевые соединения')
+    print('11. Частота процессора')
     print()
     print('01. Звёзды')
     print('0. Выход')
@@ -235,6 +242,11 @@ while True:
     elif inp == '10':
         skobki_tu()
         show_connections_info()
+        skobki_tu()
+        wait_for_enter()
+    elif inp == '11':
+        skobki_tu()
+        show_cpu_frequency()
         skobki_tu()
         wait_for_enter()
     elif inp == '01':
