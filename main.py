@@ -4,6 +4,16 @@ import psutil
 import socket
 import time
 
+def show_disk_speed():
+    disk_before = psutil.disk_io_counters()
+    time.sleep(1)
+    disk_after = psutil.disk_io_counters()
+    read_speed = (disk_after.read_bytes - disk_before.read_bytes) / 1024 ** 2
+    write_speed = (disk_after.write_bytes - disk_before.write_bytes) / 1024 ** 2
+    print('Скорость чтения:', round(read_speed, 2), 'МБ/с')
+    print('Скорость записи:', round(write_speed, 2), 'МБ/с')
+
+
 def show_cpu_frequency():
     frequency = psutil.cpu_freq()
     print('Текущая частота CPU:', round(frequency.current, 1), 'МГц')
@@ -186,6 +196,7 @@ while True:
     print('9. Температура')
     print('10. Сетевые соединения')
     print('11. Частота процессора')
+    print('12. Скорость диска')
     print()
     print('01. Звёзды')
     print('0. Выход')
@@ -247,6 +258,11 @@ while True:
     elif inp == '11':
         skobki_tu()
         show_cpu_frequency()
+        skobki_tu()
+        wait_for_enter()
+    elif inp == '12':
+        skobki_tu()
+        show_disk_speed()
         skobki_tu()
         wait_for_enter()
     elif inp == '01':
