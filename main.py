@@ -3,6 +3,11 @@ import shutil
 import psutil
 import socket
 import time
+import getpass
+
+def show_user_info():
+    username = getpass.getuser()
+    print('Текущий пользователь:', username)
 
 def show_disk_speed():
     disk_before = psutil.disk_io_counters()
@@ -197,6 +202,7 @@ while True:
     print('10. Сетевые соединения')
     print('11. Частота процессора')
     print('12. Скорость диска')
+    print('13. Текущий пользователь')
     print()
     print('01. Звёзды')
     print('0. Выход')
@@ -263,6 +269,11 @@ while True:
     elif inp == '12':
         skobki_tu()
         show_disk_speed()
+        skobki_tu()
+        wait_for_enter()
+    elif inp == '13':
+        skobki_tu()
+        show_user_info()
         skobki_tu()
         wait_for_enter()
     elif inp == '01':
