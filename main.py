@@ -5,6 +5,14 @@ import socket
 import time
 import getpass
 
+def show_swap_info():
+    swap = psutil.swap_memory()
+
+    print('Всего Swap:', round(swap.total / 1024 ** 3, 2), 'ГБ')
+    print('Занято Swap:', round(swap.used / 1024 ** 3, 2), 'ГБ')
+    print('Свободно Swap:', round(swap.free / 1024 ** 3, 2), 'ГБ')
+    print('Использовано Swap:', swap.percent, '%')
+
 def show_user_info():
     username = getpass.getuser()
     print('Текущий пользователь:', username)
@@ -203,6 +211,7 @@ while True:
     print('11. Частота процессора')
     print('12. Скорость диска')
     print('13. Текущий пользователь')
+    print('14. Информация о Swap')
     print()
     print('01. Звёзды')
     print('0. Выход')
@@ -274,6 +283,11 @@ while True:
     elif inp == '13':
         skobki_tu()
         show_user_info()
+        skobki_tu()
+        wait_for_enter()
+    elif inp == '15':
+        skobki_tu()
+        show_swap_info()
         skobki_tu()
         wait_for_enter()
     elif inp == '01':
