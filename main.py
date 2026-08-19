@@ -5,6 +5,22 @@ import socket
 import time
 import getpass
 
+def show_network_interfaces():
+    interfaces = psutil.net_if_stats()
+
+    for name, info in interfaces.items():
+        if info.isup:
+            status = 'Включён'
+        else:
+            status = 'Выключен'
+
+        print(
+            'Интерфейс:', name,
+            '| Состояние:', status,
+            '| Скорость:', info.speed, 'Мбит/с',
+            '| MTU:', info.mtu
+        )
+
 def show_swap_info():
     swap = psutil.swap_memory()
 
@@ -212,6 +228,7 @@ while True:
     print('12. Скорость диска')
     print('13. Текущий пользователь')
     print('14. Информация о Swap')
+    print('15. Сетевые интерфейсы')
     print()
     print('01. Звёзды')
     print('0. Выход')
@@ -285,9 +302,14 @@ while True:
         show_user_info()
         skobki_tu()
         wait_for_enter()
-    elif inp == '15':
+    elif inp == '14':
         skobki_tu()
         show_swap_info()
+        skobki_tu()
+        wait_for_enter()
+    elif inp == '15':
+        skobki_tu()
+        show_network_interfaces()
         skobki_tu()
         wait_for_enter()
     elif inp == '01':
