@@ -5,6 +5,13 @@ import socket
 import time
 import getpass
 
+def show_internet_status():
+    try:
+        socket.create_connection(('1.1.1.1', 53), timeout=3)
+        print('Интернет: доступен')
+    except OSError:
+        print('Интернет: недоступен')
+
 def show_network_interfaces():
     interfaces = psutil.net_if_stats()
 
@@ -229,6 +236,7 @@ while True:
     print('13. Текущий пользователь')
     print('14. Информация о Swap')
     print('15. Сетевые интерфейсы')
+    print('16. Проверка интернета')
     print()
     print('01. Звёзды')
     print('0. Выход')
@@ -310,6 +318,11 @@ while True:
     elif inp == '15':
         skobki_tu()
         show_network_interfaces()
+        skobki_tu()
+        wait_for_enter()
+    elif inp == '16':
+        skobki_tu()
+        show_internet_status()
         skobki_tu()
         wait_for_enter()
     elif inp == '01':
