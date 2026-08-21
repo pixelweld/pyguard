@@ -5,6 +5,17 @@ import socket
 import time
 import getpass
 
+def show_dns_check():
+    domain = input('Введите домен: ')
+
+    try:
+        ip = socket.gethostbyname(domain)
+        print('DNS работает')
+        print('Домен:', domain)
+        print('IP:', ip)
+    except socket.gaierror:
+        print('Не удалось определить IP')
+
 def show_internet_status():
     try:
         socket.create_connection(('1.1.1.1', 53), timeout=3)
@@ -237,6 +248,7 @@ while True:
     print('14. Информация о Swap')
     print('15. Сетевые интерфейсы')
     print('16. Проверка интернета')
+    print('17. Проверка DNS')
     print()
     print('01. Звёзды')
     print('0. Выход')
@@ -323,6 +335,11 @@ while True:
     elif inp == '16':
         skobki_tu()
         show_internet_status()
+        skobki_tu()
+        wait_for_enter()
+    elif inp == '17':
+        skobki_tu()
+        show_dns_check()
         skobki_tu()
         wait_for_enter()
     elif inp == '01':
