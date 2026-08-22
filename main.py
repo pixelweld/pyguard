@@ -5,6 +5,14 @@ import socket
 import time
 import getpass
 
+def show_network_errors():
+    net = psutil.net_io_counters()
+
+    print('Ошибки при получении:', net.errin)
+    print('Ошибки при отправке:', net.errout)
+    print('Потеряно входящих пакетов:', net.dropin)
+    print('Потеряно исходящих пакетов:', net.dropout)
+
 def show_dns_check():
     domain = input('Введите домен: ')
 
@@ -249,6 +257,7 @@ while True:
     print('15. Сетевые интерфейсы')
     print('16. Проверка интернета')
     print('17. Проверка DNS')
+    print('18. Ошибки сети')
     print()
     print('01. Звёзды')
     print('0. Выход')
@@ -340,6 +349,11 @@ while True:
     elif inp == '17':
         skobki_tu()
         show_dns_check()
+        skobki_tu()
+        wait_for_enter()
+    elif inp == '18':
+        skobki_tu()
+        show_network_errors()
         skobki_tu()
         wait_for_enter()
     elif inp == '01':
