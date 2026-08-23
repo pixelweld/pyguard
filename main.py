@@ -5,6 +5,21 @@ import socket
 import time
 import getpass
 
+def show_live_monitor():
+    try:
+        while True:
+            cpu = psutil.cpu_percent(interval=1)
+            ram = psutil.virtual_memory().percent
+
+            print(
+                '\rCPU:', cpu, '% | RAM:', ram, '%',
+                end=''
+            )
+
+    except KeyboardInterrupt:
+        print()
+        print('Мониторинг остановлен')
+
 def show_network_errors():
     net = psutil.net_io_counters()
 
@@ -258,6 +273,7 @@ while True:
     print('16. Проверка интернета')
     print('17. Проверка DNS')
     print('18. Ошибки сети')
+    print('19. Живой монитор CPU и RAM')
     print()
     print('01. Звёзды')
     print('0. Выход')
@@ -354,6 +370,11 @@ while True:
     elif inp == '18':
         skobki_tu()
         show_network_errors()
+        skobki_tu()
+        wait_for_enter()
+    elif inp == '19':
+        skobki_tu()
+        show_live_monitor()
         skobki_tu()
         wait_for_enter()
     elif inp == '01':
