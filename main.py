@@ -105,15 +105,23 @@ def show_connections_info():
             print('Процесс:', process_name)
             
 def show_temperature_info():
-    temperatures = psutil.sensors_temperatures()
-    cpu_temp = temperatures['coretemp'][0].current
-    print('Температура CPU:', cpu_temp, '°C')
-    ssd_temp = temperatures['nvme'][0].current
-    print('Температура SSD:', round(ssd_temp, 1), '°C')
+    try:
+        while True:
+            temperatures = psutil.sensors_temperatures()
+            cpu_temp = temperatures['coretemp'][0].current
+            print('Температура CPU:', cpu_temp, '°C')
+            ssd_temp = temperatures['nvme'][0].current
+            print('Температура SSD:', round(ssd_temp, 1), '°C')
     
-    for sensor in temperatures['coretemp']:
-        if 'Core' in sensor.label:
-            print(sensor.label + ':', sensor.current, '°C')
+            for sensor in temperatures['coretemp']:
+                if 'Core' in sensor.label:
+                    print(sensor.label + ':', sensor.current, '°C')
+                    
+            time.sleep(1)
+                    
+    except KeyboardInterrupt:
+            print()
+            print('Мониторинг температуры остановлен')
 
 def show_cpu_info():
     physical = psutil.cpu_count(logical=False)
